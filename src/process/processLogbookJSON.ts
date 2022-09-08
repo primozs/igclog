@@ -4,7 +4,10 @@ import { findFiles } from './findFiles';
 import chalk from 'chalk';
 import path from 'path';
 
-export const processLogbookJson = async (metaPath: string, config: Config) => {
+export const processLogbookJson = async (
+  metaPath: string,
+  config: Config | null,
+) => {
   const metaList = await findFiles(metaPath, '*.meta.json');
   const logbook: FlightMeta[] = [];
 

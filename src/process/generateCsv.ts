@@ -23,12 +23,12 @@ function sToHMS(duration: number) {
 export const generateCsv = async (
   logbook: FlightMeta[],
   metaPath: string,
-  config: Config,
+  config: Config | null,
 ) => {
   const filepath = path.resolve(metaPath, '..', 'logbook.csv');
 
   const workbook = new ExcelJS.Workbook();
-  if (config.pilot) {
+  if (config?.pilot) {
     workbook.creator = config.pilot;
     workbook.lastModifiedBy = config.pilot;
   }

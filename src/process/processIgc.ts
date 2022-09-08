@@ -11,7 +11,7 @@ export async function processIgc(
   metaPath: string,
   filePath: string,
   options: Options,
-  config: Config,
+  config: Config | null,
 ) {
   try {
     let recDate: Date | null = null;
@@ -107,9 +107,10 @@ export async function processIgc(
     meta.filename = fileName;
     meta.filepath = path.resolve(filePath);
 
-    if ((!meta.pilot || meta.pilot === 'Unknown') && config.pilot)
+    if ((!meta.pilot || meta.pilot === 'Unknown') && config?.pilot)
       meta.pilot = config.pilot;
-    if (!meta.glider && config.glider) meta.glider = config.glider;
+
+    if (!meta.glider && config?.glider) meta.glider = config.glider;
 
     if (meta.takeoff_pos) {
       const timezone = await getTimezone(meta.takeoff_pos, meta.takeoff_date);

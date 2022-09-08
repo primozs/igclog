@@ -19,7 +19,7 @@ async function deleteMetaFiles(metaPath: string) {
   }
 }
 
-export async function main(options: Options, config: Config) {
+export async function main(options: Options, config: Config | null) {
   if (!options.directory || !fs.exists(options.directory)) {
     console.error('%s Directory does not exist', chalk.red.bold('ERROR'));
     process.exit(1);

@@ -23,11 +23,11 @@ function sToHMS(duration: number) {
 export const generateXlsx = async (
   logbook: FlightMeta[],
   metaPath: string,
-  config: Config,
+  config: Config | null,
 ) => {
   const filepath = path.resolve(metaPath, '..', 'logbook.xlsx');
   const workbook = new ExcelJS.Workbook();
-  if (config.pilot) {
+  if (config?.pilot) {
     workbook.creator = config.pilot;
     workbook.lastModifiedBy = config.pilot;
   }
@@ -57,7 +57,7 @@ export const generateXlsx = async (
   };
 
   wsFlights.mergeCells('E1', 'S1');
-  wsFlights.getCell('E1').value = `${config.pilot} flight logbook`;
+  wsFlights.getCell('E1').value = `${config?.pilot || ''} flight logbook`;
 
   const titleRow = wsFlights.getRow(1);
   titleRow.height = 35;
@@ -334,7 +334,7 @@ export const generateXlsx = async (
     alignment: { horizontal: 'center' },
   };
 
-  const tdd = config.duration ? sToHMS(config.duration) : null;
+  const tdd = config?.duration ? sToHMS(config.duration) : null;
 
   const initDuration = tdd
     ? new Date(
@@ -372,7 +372,7 @@ export const generateXlsx = async (
     alignment: { horizontal: 'center' },
   };
   wsFlights.mergeCells('G4', 'I4');
-  wsFlights.getCell('G4').value = config.flights ?? 0;
+  wsFlights.getCell('G4').value = config?.flights ?? 0;
   wsFlights.getCell('G4').style = {
     font: summaryFont,
     alignment: { horizontal: 'center' },

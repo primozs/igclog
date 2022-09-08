@@ -77,10 +77,10 @@ function parseArgs(rawArgs: any) {
   }
 }
 
-async function promptMissingOptions(options: Options, config: Config) {
+async function promptMissingOptions(options: Options, config: Config | null) {
   let directory = options.directory
     ? path.resolve(options.directory)
-    : config.directory
+    : config?.directory
     ? config.directory
     : process.cwd();
 
@@ -205,6 +205,7 @@ async function promptMissingOptions(options: Options, config: Config) {
 
 export async function cli(args: any) {
   const config = await getConfig();
+  console.log('config', config);
   let options = parseArgs(args);
 
   options = await promptMissingOptions(options, config);

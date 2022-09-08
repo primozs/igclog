@@ -15,10 +15,10 @@ const getAccessToken = async () => {
   try {
     if (!accessToken) {
       const data = await getConfig();
-      const authJwt = await authenticateJwt(data.accessToken);
+      const authJwt = await authenticateJwt(data?.accessToken || '');
 
       if (authJwt) {
-        accessToken = data.accessToken as string;
+        accessToken = data?.accessToken || ('' as string);
       }
     }
     return accessToken;

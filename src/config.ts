@@ -19,8 +19,8 @@ export const getConfig = async () => {
     const data = (await fs.readAsync(
       path.join(homedir(), '.igclog'),
       'json',
-    )) as Config;
-    return data;
+    )) as Config | null | undefined;
+    return data || null;
   } catch (error) {
     console.error('%s Read configuration ', chalk.red.bold('ERROR'));
     return defaultConfig;

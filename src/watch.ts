@@ -5,8 +5,11 @@ import { lookupInit } from './services/location';
 import path from 'path';
 import { processAllFiles } from './process/processAllFiles';
 
-export const initWatchMode = async (options: Options, config: Config) => {
-  const dir = options.directory || config.directory;
+export const initWatchMode = async (
+  options: Options,
+  config: Config | null,
+) => {
+  const dir = options.directory || config?.directory;
   if (!dir) {
     console.error('%s Working folder not known', chalk.red.bold('ERROR'));
     process.exit(1);

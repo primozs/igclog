@@ -59,8 +59,8 @@ const generateLoc = async (source: string) => {
   });
 };
 
-export const lookupInit = async (options: Options, config: Config) => {
-  const dir = options.directory || config.directory;
+export const lookupInit = async (options: Options, config: Config | null) => {
+  const dir = options.directory || config?.directory;
   if (!dir) return;
 
   const locPath = path.resolve(dir, 'locations.json');
