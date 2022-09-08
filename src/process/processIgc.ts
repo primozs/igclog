@@ -158,6 +158,7 @@ export async function processIgc(
       meta.sport = oldMeta.sport?.toLowerCase() ?? meta.sport?.toLowerCase();
       meta.registration = oldMeta.glider_registration ?? meta.registration;
       meta.callsign = oldMeta.competition_number ?? meta.callsign;
+      meta.favorite = oldMeta.favorite || meta.favorite;
     }
 
     if (meta.sport === 'paragliders' || meta.sport === 'paraglider') {

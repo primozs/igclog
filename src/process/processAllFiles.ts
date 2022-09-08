@@ -1,4 +1,4 @@
-import fs, { find } from 'fs-jetpack';
+import fs from 'fs-jetpack';
 import path from 'path';
 import chalk from 'chalk';
 import { processIgc } from './processIgc';
@@ -9,15 +9,7 @@ import { generateXlsx } from './generateXlsx';
 import { generateCsv } from './generateCsv';
 import { Options, Config, FlightMeta } from '../types';
 
-export const processAllFiles = async (options: Options, config: Config) => {
-  if (!options.directory || !fs.exists(options.directory)) {
-    console.error('%s Directory does not exist', chalk.red.bold('ERROR'));
-    process.exit(1);
-  }
-
-  const metaPath = path.join(options.directory, 'meta');
-  const list = await findFiles(options.directory);
-  const manualList = await findFiles(options.directory, '*.manual.json');
+const missingIGCsMetaClean = async (metaPath: string) => {
   const metaList = await findFiles(metaPath, '*.meta.json');
 
   // check igc still exists
@@ -53,6 +45,19 @@ export const processAllFiles = async (options: Options, config: Config) => {
       await fs.removeAsync(igcOptGeoJsonFilePath);
     }
   }
+};
+
+export const processAllFiles = async (options: Options, config: Config) => {
+  if (!options.directory || !fs.exists(options.directory)) {
+    console.error('%s Directory does not exist', chalk.red.bold('ERROR'));
+    process.exit(1);
+  }
+
+  const metaPath = path.join(options.directory, 'meta');
+  const list = await findFiles(options.directory);
+  const manualList = await findFiles(options.directory, '*.manual.json');
+
+  await missingIGCsMetaClean(metaPath);
 
   for (const igcPath of list) {
     await processIgc(metaPath, igcPath, options, config);

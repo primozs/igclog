@@ -43,6 +43,7 @@ export type FlightMetaCu = {
   competition_number: string;
   glider_registration: string;
   sport: string;
+  favorite: boolean;
 };
 
 export type FlightMeta = {
@@ -74,6 +75,7 @@ export type FlightMeta = {
   xcCode: string | null;
   best_thermal_avg_vario: number | null;
   sport: string | null;
+  favorite: boolean;
 };
 
 export type Config = {

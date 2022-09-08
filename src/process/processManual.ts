@@ -32,6 +32,7 @@ const defaultFlightMeta: FlightMeta = {
   xcCode: null,
   best_thermal_avg_vario: null,
   sport: null,
+  favorite: false,
 };
 
 export async function processManual(metaPath: string, manualPath: string) {

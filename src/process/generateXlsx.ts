@@ -100,6 +100,7 @@ export const generateXlsx = async (
     'Filename',
     'Filepath',
     'XcCode',
+    'Favorite',
   ];
 
   headerRow.height = 35;
@@ -265,6 +266,10 @@ export const generateXlsx = async (
       key: 'xcCode',
       width: styleWidth(3),
     },
+    {
+      key: 'favorite',
+      width: styleWidth(3),
+    },
   ];
 
   for (let i = 0, len = logbook.length; i < len; i++) {
@@ -311,6 +316,7 @@ export const generateXlsx = async (
       distance_m: log.distance,
       xc_distance_m: log.xcDistance,
       duration_s: log.duration,
+      favorite: log.favorite,
     });
   }
 

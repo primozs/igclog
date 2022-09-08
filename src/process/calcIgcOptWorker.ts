@@ -128,6 +128,7 @@ const calcIgcOpt = (igcJson: IgcParser.IGCFile) => {
     xcCode,
     sport: '',
     best_thermal_avg_vario: null,
+    favorite: false,
   };
   return {
     fullData,

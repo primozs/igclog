@@ -66,6 +66,7 @@ export const generateCsv = async (
     'Filename',
     'Filepath',
     'XcCode',
+    'Favorite',
   ];
 
   wsFlights.columns = [
@@ -209,6 +210,10 @@ export const generateCsv = async (
       key: 'xcCode',
       width: styleWidth(3),
     },
+    {
+      key: 'favorite',
+      width: styleWidth(3),
+    },
   ];
 
   for (let i = 0, len = logbook.length; i < len; i++) {
@@ -255,6 +260,7 @@ export const generateCsv = async (
       distance_m: log.distance,
       xc_distance_m: log.xcDistance,
       duration_s: log.duration,
+      favorite: log.favorite,
     });
   }
 

@@ -9,6 +9,7 @@ import { findFiles } from './process/findFiles';
 import { initWatchMode } from './watch';
 import { processAllFiles } from './process/processAllFiles';
 import { lookupInit } from './services/location';
+import { findDuplicates } from './process/findDuplicates';
 
 async function deleteMetaFiles(metaPath: string) {
   try {
@@ -76,7 +77,10 @@ export async function main(options: Options, config: Config) {
 
   if (options.onlyFindIGCFiles) {
     const list = await findFiles(options.directory);
-    console.log(list);
+    await findDuplicates(list);
+    console.log('');
+    console.log(chalk.green.bold('All FOUND FILES'));
+    console.table(list);
     process.exit(0);
   }
 

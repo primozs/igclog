@@ -207,9 +207,7 @@ export async function cli(args: any) {
   const config = await getConfig();
   let options = parseArgs(args);
 
-  if (!options.watchMode) {
-    options = await promptMissingOptions(options, config);
-  }
+  options = await promptMissingOptions(options, config);
 
   main(options, config);
 }
