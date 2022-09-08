@@ -75,8 +75,3 @@ type FlightMeta = {
   sport: string | null;
 };
 ```
-
-TODO:
-
-- find duplicates, hash time, shape
-- package tool

@@ -31,7 +31,7 @@ export const processLogbookJson = async (metaPath: string, config: Config) => {
     }
   }
 
-  const dupes: [string, string][] = [];
+  const dupes: [string, string, string, string, string, string][] = [];
   for (const item of compares) {
     const dup = compares.find((c) => {
       return (
@@ -42,7 +42,14 @@ export const processLogbookJson = async (metaPath: string, config: Config) => {
     });
 
     if (dup) {
-      dupes.push([item.filepath, dup.filepath]);
+      dupes.push([
+        item.filepath,
+        dup.filepath,
+        new Date(item.takeoff_date).toISOString(),
+        new Date(item.landing_date).toISOString(),
+        new Date(dup.takeoff_date).toISOString(),
+        new Date(dup.landing_date).toISOString(),
+      ]);
     }
   }
 
@@ -50,8 +57,10 @@ export const processLogbookJson = async (metaPath: string, config: Config) => {
     console.log('');
     console.log('%s Duplicate files', chalk.yellow.bold('DUPLICATES'));
     console.log('');
-    for (const [first, second] of dupes) {
+    for (const [first, second, t1, l1, t2, l2] of dupes) {
       console.log(chalk.green.bold(first), chalk.yellow.bold(second));
+      console.log(chalk.green.bold(t1), chalk.green.bold(l1));
+      console.log(chalk.yellow.bold(t2), chalk.yellow.bold(l2));
     }
   }
 
