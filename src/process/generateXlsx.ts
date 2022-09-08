@@ -357,7 +357,7 @@ export const generateXlsx = async (
     alignment: { horizontal: 'center' },
   };
   // @ts-ignore
-  wsFlights.getCell('F4').value = config.distance ? config.distance / 1000 : 0;
+  wsFlights.getCell('F4').value = config?.distance ? config.distance / 1000 : 0;
   wsFlights.getCell('F4').style = {
     font: summaryFont,
     alignment: { horizontal: 'center' },
