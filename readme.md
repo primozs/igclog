@@ -1,14 +1,30 @@
 # IGCLog
 
-Terminal tool to generate spreadsheet flights logbook from igc files. If your tracklogs are scattered around your disk this tool can also help you find them.
+Terminal tool to generate spreadsheet flight logbook from igc files. If your tracklogs are spread across your drive, this tool can also help you find them.
 
-1. Sync your tracklogs between different devices with [Syncthing](https://syncthing.net/)
-2. Use `igclog` to generate logbook spreadsheet file.
-3. If you will run this on the server you can sync back the result to your devices
+1. Synchronize your tracklogs across devices with [Syncthing](https://syncthing.net/)
+2. Use `igclog` to generate the logbook spreadsheet file.
+3. If you run this to the server, you can synchronize the result to your devices.
+
+![igclog result](/docs/igclog.png)
 
 ## Install
 
-`$ npm install -g igclog`
+Use executables in `packages` folder:
+
+- [Linux](/packages/igclog-linux?raw=true)
+- [OSX](/packages/igclog-macos?raw=true)
+- [Windows](/packages/igclog-win.exe?raw=true)
+
+## Develop
+
+```text
+git clone...
+yarn build
+npm link
+npm install . -g
+
+```
 
 ## Optional arguments
 
