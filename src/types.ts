@@ -23,6 +23,7 @@ export type Options = {
   recYear: number | undefined;
   recMonth: number | undefined;
   recDay: number | undefined;
+  watchMode: boolean;
 };
 
 export type FlightMetaCu = {

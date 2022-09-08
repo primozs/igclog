@@ -83,6 +83,7 @@ export const lookupInit = async (options: Options, config: Config) => {
       let dimensions = ['lat', 'lon'];
       tree = kdTree.createKdTree(locations, distanceFunction, dimensions);
     }
+  console.log(chalk.green.bold('Reverse geocoder initialized ...'));
 };
 
 export const reverseGeolookup = async (

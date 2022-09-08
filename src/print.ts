@@ -13,6 +13,7 @@ export const printHelp = () => {
   -r  --recalculateFrom       Recalculate from date
   -s  --displaySettings       Display settings
   -i  --setInitialValues      Set initial starting total distance duration number of flights
+  -w  --watchMode             Files watch mode. For linux daemon "$ nohup igclog -d ./data/ -w >/tmp/igclog.out 2>/tmp/igclog.error&"
   -h  --help                  Help
   -v  --version               Version  
 `);

@@ -1,0 +1,78 @@
+import fs, { find } from 'fs-jetpack';
+import path from 'path';
+import chalk from 'chalk';
+import { processIgc } from './processIgc';
+import { processManual } from './processManual';
+import { processLogbookJson } from './processLogbookJSON';
+import { findFiles } from './findFiles';
+import { generateXlsx } from './generateXlsx';
+import { generateCsv } from './generateCsv';
+import { Options, Config, FlightMeta } from '../types';
+
+export const processAllFiles = async (options: Options, config: Config) => {
+  if (!options.directory || !fs.exists(options.directory)) {
+    console.error('%s Directory does not exist', chalk.red.bold('ERROR'));
+    process.exit(1);
+  }
+
+  const metaPath = path.join(options.directory, 'meta');
+  const list = await findFiles(options.directory);
+  const manualList = await findFiles(options.directory, '*.manual.json');
+  const metaList = await findFiles(metaPath, '*.meta.json');
+
+  // check igc still exists
+  for (const filePath of metaList) {
+    let meta = (await fs.readAsync(filePath, 'json')) as FlightMeta;
+    if (!meta || !meta.filepath) continue;
+
+    let fileName = path.basename(filePath);
+    let igcFileName = fileName.replace('.meta.json', '');
+
+    let igcPath = path.resolve(meta.filepath);
+
+    if (!fs.exists(igcPath)) {
+      const igcJsonFilePath = path.join(metaPath, igcFileName + '.pos.json');
+      const igcOptJsonFilePath = path.join(metaPath, igcFileName + '.opt.json');
+      const igcOptGeoJsonFilePath = path.join(
+        metaPath,
+        igcFileName + '.opt.geojson',
+      );
+      const igcElvJsonFilePath = path.join(
+        metaPath,
+        igcFileName + '.elev.json',
+      );
+      const igcMetaJsonFilePath = path.join(
+        metaPath,
+        igcFileName + '.meta.json',
+      );
+
+      await fs.removeAsync(igcJsonFilePath);
+      await fs.removeAsync(igcOptJsonFilePath);
+      await fs.removeAsync(igcElvJsonFilePath);
+      await fs.removeAsync(igcMetaJsonFilePath);
+      await fs.removeAsync(igcOptGeoJsonFilePath);
+    }
+  }
+
+  for (const igcPath of list) {
+    await processIgc(metaPath, igcPath, options, config);
+  }
+
+  console.log('IGC files processed: ', chalk.green.bold(list.length));
+
+  for (const manualPath of manualList) {
+    await processManual(metaPath, manualPath);
+  }
+
+  console.log(
+    'Manual flights and updates: ',
+    chalk.green.bold(manualList.length),
+  );
+
+  const logbook = await processLogbookJson(metaPath, config);
+  await generateXlsx(logbook, metaPath, config);
+
+  if (options.generateCsv) {
+    await generateCsv(logbook, metaPath, config);
+  }
+};

@@ -2,15 +2,12 @@ import { Options, Config } from './types';
 import fs from 'fs-jetpack';
 import path from 'path';
 import chalk from 'chalk';
-import { processIgc } from './process/processIgc';
-import { processManual } from './process/processManual';
 import { printHelp, getVersion } from './print';
 import { authenticateLocal } from './services/services';
 import { setConfig } from './config';
-import { processLogbookJson } from './process/processLogbookJSON';
 import { findFiles } from './process/findFiles';
-import { generateXlsx } from './process/generateXlsx';
-import { generateCsv } from './process/generateCsv';
+import { initWatchMode } from './watch';
+import { processAllFiles } from './process/processAllFiles';
 import { lookupInit } from './services/location';
 
 async function deleteMetaFiles(metaPath: string) {
@@ -33,9 +30,10 @@ export async function main(options: Options, config: Config) {
 
   fs.dir(metaPath);
 
-  const list = await findFiles(options.directory);
-
-  const manualList = await findFiles(options.directory, '*.manual.json');
+  if (options.watchMode) {
+    await initWatchMode(options, config);
+    return;
+  }
 
   if (options.displaySettings) {
     console.log(JSON.stringify(config, null, 2));
@@ -77,6 +75,7 @@ export async function main(options: Options, config: Config) {
   }
 
   if (options.onlyFindIGCFiles) {
+    const list = await findFiles(options.directory);
     console.log(list);
     process.exit(0);
   }
@@ -87,27 +86,6 @@ export async function main(options: Options, config: Config) {
   }
 
   await lookupInit(options, config);
-  for (const igcPath of list) {
-    await processIgc(metaPath, igcPath, options, config);
-  }
-
-  console.log('IGC files processed: ', chalk.green.bold(list.length));
-
-  for (const manualPath of manualList) {
-    await processManual(metaPath, manualPath);
-  }
-
-  console.log(
-    'Manual flights and updates: ',
-    chalk.green.bold(manualList.length),
-  );
-
-  const logbook = await processLogbookJson(metaPath, config);
-  await generateXlsx(logbook, metaPath, config);
-
-  if (options.generateCsv) {
-    await generateCsv(logbook, metaPath, config);
-  }
-
+  await processAllFiles(options, config);
   process.exit(0);
 }

@@ -23,6 +23,7 @@ function parseArgs(rawArgs: any) {
         '--setInitialValues': Boolean,
         '--generateCsv': Boolean,
         '--recalculateFrom': Boolean,
+        '--watchMode': Boolean,
         '-y': '--yes', // skip prompts
         '-f': '--onlyFindIGCFiles', // Find and list igc files,
         '-d': '--directory', // Set the directory from which to begin searching. By default, starting-point is .
@@ -35,6 +36,7 @@ function parseArgs(rawArgs: any) {
         '-r': '--recalculateFrom',
         '-s': '--displaySettings',
         '-i': '--setInitialValues',
+        '-w': '--watchMode',
         '-h': '--help',
         '-v': '--version',
       },
@@ -56,6 +58,7 @@ function parseArgs(rawArgs: any) {
       setInitialValues: args['--setInitialValues'] || false,
       generateCsv: args['--generateCsv'] || false,
       recalculateFrom: args['--recalculateFrom'] || false,
+      watchMode: args['--watchMode'] || false,
       distance: undefined,
       duration: undefined,
       flights: undefined,
@@ -90,7 +93,7 @@ async function promptMissingOptions(options: Options, config: Config) {
 
   const questions = [];
 
-  if (options.directory) {
+  if (options.directory && !options.watchMode) {
     questions.push({
       type: 'confirm',
       name: 'storeDefaultDir',
@@ -203,6 +206,10 @@ async function promptMissingOptions(options: Options, config: Config) {
 export async function cli(args: any) {
   const config = await getConfig();
   let options = parseArgs(args);
-  options = await promptMissingOptions(options, config);
+
+  if (!options.watchMode) {
+    options = await promptMissingOptions(options, config);
+  }
+
   main(options, config);
 }
