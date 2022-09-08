@@ -19,7 +19,7 @@ Terminal tool to generate spreadsheet flights logbook from igc files. If your tr
 -z  --deleteMeta            Delete meta json files
 -c  --configuration         Set default configuration
 -y  --yes                   Skip prompts
--a  --authenticate          Authenticate api for location and elevation data
+-a  --authenticate          Authenticate api for elevation data
 -e  --elevations            Query elevation data. Requires authentication
 -g  --generateCsv           Generate CSV file
 -r  --recalculateFrom       Recalculate from date
@@ -77,5 +77,6 @@ type FlightMeta = {
 
 TODO:
 
+- watch mode
 - find duplicates, hash time, shape
 - package tool

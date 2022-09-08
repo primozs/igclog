@@ -2,6 +2,8 @@ import path from 'path';
 import fs from 'fs-jetpack';
 import distance from '@turf/distance';
 import chalk from 'chalk';
+import { Config, Options } from '../types';
+import axios from 'axios';
 const kdTree = require('kdt');
 
 type Loc = {
@@ -20,9 +22,7 @@ const distanceFunction = (
   return distance([from.lon, from.lat], [to.lon, to.lat], { units: 'meters' });
 };
 
-const source = './src/loc';
-
-const generateLoc = async () => {
+const generateLoc = async (source: string) => {
   const airports = await fs.readAsync(
     path.resolve(source, 'airports.json'),
     'json',
@@ -59,19 +59,30 @@ const generateLoc = async () => {
   });
 };
 
-export const lookupInit = async () => {
-  const locPath = path.resolve(source, 'locations.json');
+export const lookupInit = async (options: Options, config: Config) => {
+  const dir = options.directory || config.directory;
+  if (!dir) return;
+
+  const locPath = path.resolve(dir, 'locations.json');
   const locFileExists = fs.exists(locPath);
 
-  // await generateLoc();
+  if (!locFileExists) {
+    console.log(chalk.green.bold('Downloading locations file ...'));
+    const url =
+      'https://raw.githubusercontent.com/primozs/igclog/master/src/loc/locations.json';
+    const { data } = await axios.get(url);
 
-  if (locFileExists) {
-    console.log(chalk.green.bold('Initializing reverse geocoder ...'));
-    const locations = await fs.readAsync(locPath, 'json');
-
-    let dimensions = ['lat', 'lon'];
-    tree = kdTree.createKdTree(locations, distanceFunction, dimensions);
+    await fs.writeAsync(locPath, data, { jsonIndent: 0 });
   }
+
+  if (options.directory)
+    if (locFileExists) {
+      console.log(chalk.green.bold('Initializing reverse geocoder ...'));
+      const locations = await fs.readAsync(locPath, 'json');
+
+      let dimensions = ['lat', 'lon'];
+      tree = kdTree.createKdTree(locations, distanceFunction, dimensions);
+    }
 };
 
 export const reverseGeolookup = async (

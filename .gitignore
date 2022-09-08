@@ -7,3 +7,4 @@ data/meta
 *.xlsx
 *.csv
 *.xlsx#
+data/locations.json

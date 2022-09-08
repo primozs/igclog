@@ -86,7 +86,7 @@ export async function main(options: Options, config: Config) {
     process.exit(0);
   }
 
-  await lookupInit();
+  await lookupInit(options, config);
   for (const igcPath of list) {
     await processIgc(metaPath, igcPath, options, config);
   }
