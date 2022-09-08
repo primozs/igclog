@@ -1,0 +1,9 @@
+node_modules
+dist
+material
+cu
+cu_
+data/meta
+*.xlsx
+*.csv
+*.xlsx#
