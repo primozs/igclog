@@ -16,16 +16,6 @@ Use executables in `packages` folder:
 - [OSX](/packages/igclog-macos?raw=true)
 - [Windows](/packages/igclog-win.exe?raw=true)
 
-## Develop
-
-```text
-git clone...
-yarn build
-npm link
-npm install . -g
-
-```
-
 ## Optional arguments
 
 ```text
@@ -90,4 +80,14 @@ type FlightMeta = {
   best_thermal_avg_vario: number | null;
   sport: string | null;
 };
+```
+
+## Develop
+
+```text
+git clone...
+yarn build
+npm link
+npm install . -g
+
 ```
