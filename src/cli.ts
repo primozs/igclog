@@ -205,7 +205,6 @@ async function promptMissingOptions(options: Options, config: Config | null) {
 
 export async function cli(args: any) {
   const config = await getConfig();
-  console.log('config', config);
   let options = parseArgs(args);
 
   options = await promptMissingOptions(options, config);
