@@ -8,10 +8,13 @@
   "private": true,
   "scripts": {
     "build": "rm -rf dist && tsc --build",
-    "package": "pkg . --out-path packages"
+    "package": "pkg package.json --out-path packages && pkg bin/igclogsrv --out-path packages",
+    "pm2": "pm2"
   },
   "bin": {
-    "igclog": "bin/igclog"
+    "igclog": "bin/igclog",
+    "igclogsrv": "bin/igclogsrv",
+    "igclogsrvdev": "bin/igclogsrvdev"
   },
   "files": [
     "dist/**/*"
@@ -28,6 +31,7 @@
     "igc-xc-score": "^1.6.1",
     "inquirer": "8.2.3",
     "kdt": "^0.1.0",
+    "pm2": "^5.2.0",
     "threads": "^1.7.0"
   },
   "devDependencies": {

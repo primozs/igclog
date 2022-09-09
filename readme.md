@@ -88,6 +88,4 @@ type FlightMeta = {
 git clone...
 yarn build
 npm link
-npm install . -g
-
 ```
