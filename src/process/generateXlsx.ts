@@ -277,17 +277,33 @@ export const generateXlsx = async (
 
     const dd = log.duration ? sToHMS(log.duration) : null;
 
+    // librecalc etc. does no support iso string date format 2022-09-09T04:57:19.000Z
+    // =milliseconds/1000/(60*60*24) + 25569 + (T<index>/60/60/24)
+    // thats why this formula https://unix.stackexchange.com/questions/421354/convert-epoch-time-to-human-readable-in-libreoffice-calc
+    const tdFormula = log.takeoff_date
+      ? `${new Date(log.takeoff_date).getTime()}/1000/(60*60*24) + 25569 + (T${
+          i + 1 + firstRowInd
+        }/60/60/24)`
+      : '';
     const td = log.takeoff_date ? new Date(log.takeoff_date) : null;
+
     let year: number | null = td ? td.getFullYear() : null;
     let month: string | null = td
       ? td.toLocaleString('en-GB', { month: 'long' })
       : null;
 
+    const lnFormula = log.landing_date
+      ? `${new Date(log.landing_date).getTime()}/1000/(60*60*24) + 25569 + (T${
+          i + 1 + firstRowInd
+        }/60/60/24)`
+      : '';
     wsFlights.addRow({
       index: i + 1,
       year: year,
       month: month,
-      takeoff_date: td,
+      takeoff_date: {
+        formula: tdFormula,
+      },
       takeoff_location: log.takeoff_location,
       glider: log.glider,
       distance: {
@@ -307,7 +323,9 @@ export const generateXlsx = async (
       max_altitude: log.max_altitude,
       best_thermal_avg_vario: log.best_thermal_avg_vario,
       landing_location: log.landing_location,
-      landing_date: log.landing_date ? new Date(log.landing_date) : null,
+      landing_date: {
+        formula: lnFormula,
+      },
       pilot: log.pilot,
       sport: log.sport,
       timezone: log.timezone,
