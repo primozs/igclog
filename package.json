@@ -1,11 +1,11 @@
 {
-  "name": "igclog",
+  "name": "@primozs/igclog",
   "version": "1.0.0",
   "description": "igc free flight logbook",
   "main": "dist/index.js",
   "author": "Primoz Susa",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "scripts": {
     "build": "rm -rf dist && tsc --build",
     "package": "pkg package.json --out-path packages && pkg bin/igclogsrv --out-path packages",

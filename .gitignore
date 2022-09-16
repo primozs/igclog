@@ -8,3 +8,4 @@ data/meta
 *.csv
 *.xlsx#
 data/locations.json
+!bin
