@@ -64,7 +64,7 @@ export const lookupInit = async (options: Options, config: Config | null) => {
   if (!dir) return;
 
   const locPath = path.resolve(dir, 'locations.json');
-  const locFileExists = fs.exists(locPath);
+  let locFileExists = !!fs.exists(locPath);
 
   if (!locFileExists) {
     console.log(chalk.green.bold('Downloading locations file ...'));
@@ -73,6 +73,7 @@ export const lookupInit = async (options: Options, config: Config | null) => {
     const { data } = await axios.get(url);
 
     await fs.writeAsync(locPath, data, { jsonIndent: 0 });
+    locFileExists = true;
   }
 
   if (options.directory)
