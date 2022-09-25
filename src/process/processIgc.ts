@@ -113,7 +113,14 @@ export async function processIgc(
     )
       meta.pilot = config.pilot;
 
-    if (!meta.glider && config?.glider) meta.glider = config.glider;
+    if (
+      (!meta.glider ||
+        meta.glider === 'not-set' ||
+        meta.glider === 'MyAwesomeGlider') &&
+      config?.glider
+    ) {
+      meta.glider = config.glider;
+    }
 
     if (meta.takeoff_pos) {
       const timezone = await getTimezone(meta.takeoff_pos, meta.takeoff_date);
