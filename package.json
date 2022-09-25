@@ -1,6 +1,6 @@
 {
   "name": "@primozs/igclog",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "igc free flight logbook",
   "main": "dist/index.js",
   "author": "Primoz Susa",
