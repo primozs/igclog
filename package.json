@@ -8,7 +8,7 @@
   "private": false,
   "scripts": {
     "build": "rm -rf dist && tsc --build",
-    "package": "pkg package.json --out-path packages && pkg bin/igclogsrv --out-path packages",
+    "package": "yarn build && pkg package.json --out-path packages && pkg bin/igclogsrv --out-path packages",
     "pm2": "pm2"
   },
   "bin": {
