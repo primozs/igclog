@@ -107,7 +107,10 @@ export async function processIgc(
     meta.filename = fileName;
     meta.filepath = path.resolve(filePath);
 
-    if ((!meta.pilot || meta.pilot === 'Unknown') && config?.pilot)
+    if (
+      (!meta.pilot || meta.pilot === 'Unknown' || meta.pilot === 'tot-set') &&
+      config?.pilot
+    )
       meta.pilot = config.pilot;
 
     if (!meta.glider && config?.glider) meta.glider = config.glider;
