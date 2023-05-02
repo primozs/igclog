@@ -7,6 +7,7 @@ export async function findFiles(dir: string, matching: string = '*.igc') {
       directories: false,
       files: true,
       recursive: true,
+      ignoreCase: true,
     });
     return list;
   } catch (error) {
