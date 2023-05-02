@@ -1,7 +1,7 @@
 import axios from 'axios';
 import IgcParser from 'igc-parser';
 import chalk from 'chalk';
-import { getConfig, setConfig } from '../config';
+import { getConfig, setConfig } from '../config.js';
 
 type LatLon = {
   longitude: number;

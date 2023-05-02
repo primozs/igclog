@@ -1,6 +1,6 @@
-import { initWatchMode } from './watch';
-import { Options } from './types';
-import { getConfig } from './config';
+import { initWatchMode } from './watch.js';
+import { Options } from './types.js';
+import { getConfig } from './config.js';
 import path from 'path';
 
 async function main() {

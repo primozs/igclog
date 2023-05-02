@@ -3,9 +3,9 @@ import IgcParser from 'igc-parser';
 import fs from 'fs-jetpack';
 import chalk from 'chalk';
 import path from 'path';
-import { FlightMeta, Options, FlightMetaCu, Config } from '../types';
-import { getTimezone, getElevations } from '../services/services';
-import { reverseGeolookup } from '../services/location';
+import { FlightMeta, Options, FlightMetaCu, Config } from '../types.js';
+import { getTimezone, getElevations } from '../services/services.js';
+import { reverseGeolookup } from '../services/location.js';
 
 export async function processIgc(
   metaPath: string,

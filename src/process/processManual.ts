@@ -1,7 +1,7 @@
 import fs from 'fs-jetpack';
 import chalk from 'chalk';
 import path from 'path';
-import { FlightMeta } from '../types';
+import { FlightMeta } from '../types.js';
 
 const defaultFlightMeta: FlightMeta = {
   distance: 0,

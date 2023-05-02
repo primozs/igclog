@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import fs from 'fs-jetpack';
 import path from 'path';
 import { homedir } from 'os';
-import { Config } from './types';
+import { Config } from './types.js';
 
 const defaultConfig: Config = {
   accessToken: null,

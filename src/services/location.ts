@@ -2,9 +2,10 @@ import path from 'path';
 import fs from 'fs-jetpack';
 import distance from '@turf/distance';
 import chalk from 'chalk';
-import { Config, Options } from '../types';
+import { Config, Options } from '../types.js';
 import axios from 'axios';
-const kdTree = require('kdt');
+// @ts-ignore
+import kdTree from 'kdt';
 
 type Loc = {
   name: string;

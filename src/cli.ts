@@ -1,10 +1,10 @@
 import arg from 'arg';
 import inquirer from 'inquirer';
-import { Options, Config } from './types';
-import { main } from './main';
+import { Options, Config } from './types.js';
+import { main } from './main.js';
 import path from 'path';
-import { printHelp } from './print';
-import { setConfig, getConfig } from './config';
+import { printHelp } from './print.js';
+import { setConfig, getConfig } from './config.js';
 
 function parseArgs(rawArgs: any) {
   try {

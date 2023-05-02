@@ -1,6 +1,6 @@
-import { Config, FlightMeta } from '../types';
+import { Config, FlightMeta } from '../types.js';
 import fs from 'fs-jetpack';
-import { findFiles } from './findFiles';
+import { findFiles } from './findFiles.js';
 import chalk from 'chalk';
 import path from 'path';
 

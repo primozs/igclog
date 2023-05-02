@@ -1,4 +1,4 @@
-import { Config, FlightMeta } from '../types';
+import { Config, FlightMeta } from '../types.js';
 import path from 'path';
 import ExcelJS from 'exceljs';
 

@@ -1,9 +1,9 @@
-import { Config, Options } from './types';
+import { Config, Options } from './types.js';
 import chokidar from 'chokidar';
 import chalk from 'chalk';
-import { lookupInit } from './services/location';
+import { lookupInit } from './services/location.js';
 import path from 'path';
-import { processAllFiles } from './process/processAllFiles';
+import { processAllFiles } from './process/processAllFiles.js';
 
 export const initWatchMode = async (
   options: Options,
