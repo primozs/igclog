@@ -1,15 +1,15 @@
-import { Options, Config } from './types.js';
+import { Options, Config } from './types';
 import fs from 'fs-jetpack';
 import path from 'path';
 import chalk from 'chalk';
-import { printHelp, getVersion } from './print.js';
-import { authenticateLocal } from './services/services.js';
-import { setConfig } from './config.js';
-import { findFiles } from './process/findFiles.js';
-import { initWatchMode } from './watch.js';
-import { processAllFiles } from './process/processAllFiles.js';
-import { lookupInit } from './services/location.js';
-import { findDuplicates } from './process/findDuplicates.js';
+import { printHelp, getVersion } from './print';
+import { authenticateLocal } from './services/services';
+import { setConfig } from './config';
+import { findFiles } from './process/findFiles';
+import { initWatchMode } from './watch';
+import { processAllFiles } from './process/processAllFiles';
+import { lookupInit } from './services/location';
+import { findDuplicates } from './process/findDuplicates';
 
 async function deleteMetaFiles(metaPath: string) {
   try {

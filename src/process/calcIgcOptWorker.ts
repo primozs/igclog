@@ -1,7 +1,7 @@
 import { expose } from 'threads/worker';
 import { solver, scoringRules } from 'igc-xc-score';
 import IgcParser from 'igc-parser';
-import { FlightMeta } from '../types.js';
+import { FlightMeta } from '../types';
 
 const calcIgcOpt = (igcJson: IgcParser.IGCFile) => {
   const config = {

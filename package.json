@@ -1,27 +1,21 @@
 {
   "name": "@primozs/igclog",
-  "version": "2.0.0",
+  "version": "1.0.1",
   "description": "igc free flight logbook",
-  "type": "module",
   "main": "dist/index.js",
   "author": "Primoz Susa",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "rm -rf dist && tsc --build && yarn esbuildcli && yarn esbuildsrv",
-    "esbuildcli": "esbuild ./dist/cli.js --bundle --platform=node --outfile=dist/cli/index.js --define:import.meta.url=__dirname",
-    "esbuildsrv": "esbuild ./dist/srv.js --bundle --platform=node --outfile=dist/srv/index.js --define:import.meta.url=__dirname",
-    "package": "yarn build && pkg ./bin/igclog.js --out-path packages && pkg ./bin/igclogsrv.js --out-path packages",
+    "build": "rm -rf dist && tsc --build",
+    "package": "yarn build && pkg package.json --out-path packages && pkg bin/igclogsrv --out-path packages",
     "pm2": "pm2",
-    "format": "prettier --write ./src",
-    "_ bin/igclog is not found with .js extension _package": "yarn build && pkg package.json --out-path packages && pkg bin/igclogsrv --out-path packages",
-    "_ not needed because esbuild usage _nccbuild": "rm -rf dist && ncc build ./src/cli.ts -o dist/cli && ncc build ./src/srv.ts -o dist/srv",
-    "_ not needed because esbuild usage _nccpackage": "yarn nccbuild && pkg ./bin-ncc/igclog.js --out-path packages && pkg ./bin-ncc/igclogsrv.js --out-path packages"
+    "format": "prettier --write ./src"
   },
   "bin": {
-    "igclog": "bin/igclog.js",
-    "igclogsrv": "bin/igclogsrv.js",
-    "igclogsrvdev": "bin/igclogsrvdev.js"
+    "igclog": "bin/igclog",
+    "igclogsrv": "bin/igclogsrv",
+    "igclogsrvdev": "bin/igclogsrvdev"
   },
   "files": [
     "dist/**/*"
@@ -29,23 +23,21 @@
   "dependencies": {
     "@turf/distance": "^6.5.0",
     "arg": "^5.0.2",
-    "axios": "^1.4.0",
-    "chalk": "^5.2.0",
+    "axios": "^0.27.2",
+    "chalk": "4.1.2",
     "chokidar": "^3.5.3",
     "exceljs": "^4.3.0",
-    "fs-jetpack": "^5.1.0",
+    "fs-jetpack": "^4.3.1",
     "igc-parser": "^1.1.0",
-    "igc-xc-score": "^1.7.0",
-    "inquirer": "^9.2.0",
+    "igc-xc-score": "^1.6.1",
+    "inquirer": "8.2.3",
     "kdt": "^0.1.0",
-    "pm2": "^5.3.0",
+    "pm2": "^5.2.0",
     "threads": "^1.7.0"
   },
   "devDependencies": {
-    "@types/inquirer": "^9.0.3",
+    "@types/inquirer": "^9.0.1",
     "@types/node": "^18.16.3",
-    "@vercel/ncc": "^0.36.1",
-    "esbuild": "^0.17.18",
     "pkg": "^5.8.1",
     "prettier": "^2.8.8",
     "typescript": "^5.0.4"

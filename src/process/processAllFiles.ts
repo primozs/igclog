@@ -1,13 +1,13 @@
 import fs from 'fs-jetpack';
 import path from 'path';
 import chalk from 'chalk';
-import { processIgc } from './processIgc.js';
-import { processManual } from './processManual.js';
-import { processLogbookJson } from './processLogbookJSON.js';
-import { findFiles } from './findFiles.js';
-import { generateXlsx } from './generateXlsx.js';
-import { generateCsv } from './generateCsv.js';
-import { Options, Config, FlightMeta } from '../types.js';
+import { processIgc } from './processIgc';
+import { processManual } from './processManual';
+import { processLogbookJson } from './processLogbookJSON';
+import { findFiles } from './findFiles';
+import { generateXlsx } from './generateXlsx';
+import { generateCsv } from './generateCsv';
+import { Options, Config, FlightMeta } from '../types';
 
 const missingIGCsMetaClean = async (metaPath: string) => {
   const metaList = await findFiles(metaPath, '*.meta.json');
